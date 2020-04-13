@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LanchesMac.Repositories
 {
-    interface ILancheRepository
+    public interface ILancheRepository
     {
         IEnumerable<Lanche> Lanches { get; }
         IEnumerable<Lanche> LanchesPreferidos { get; }
