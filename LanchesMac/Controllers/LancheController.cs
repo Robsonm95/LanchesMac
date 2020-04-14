@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LanchesMac.Models;
+﻿using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LanchesMac.Controllers
 {
@@ -24,7 +23,7 @@ namespace LanchesMac.Controllers
         {
             String _categoria = categoria;
             IEnumerable<Lanche> lanches = null;
-           
+            
             string categoriaAtual = string.Empty;
 
             if (string.IsNullOrEmpty(categoria))
@@ -37,7 +36,12 @@ namespace LanchesMac.Controllers
                 if (string.Equals("Normal", _categoria, StringComparison.OrdinalIgnoreCase))
                 {
                     lanches = _lancheRepository.Lanches.Where(l =>
-                      l.Categoria.CategoriaNome.Equals("Natural")).OrderBy(l => l.Nome);
+                      l.Categoria.CategoriaNome.Equals("Normal")).OrderBy(l => l.Nome);
+                }
+                else 
+                {
+                    lanches = _lancheRepository.Lanches.Where(l =>
+                       l.Categoria.CategoriaNome.Equals("Natural")).OrderBy(l => l.Nome);
                 }
 
                 categoriaAtual = _categoria;
@@ -48,10 +52,17 @@ namespace LanchesMac.Controllers
                 CategoriaAtual = categoriaAtual
             };
 
-            
             return View(lanchesListViewModel);
 
         }
-        
+        public IActionResult Details(int lancheId)
+        {
+            var lanche = _lancheRepository.Lanches.FirstOrDefault(l => l.LancheId == lancheId);
+            if (lanche == null)
+            {
+                return View("~/Views/Error/Error.cshtml");
+            }
+            return View(lanche);
+        }
     }
 }

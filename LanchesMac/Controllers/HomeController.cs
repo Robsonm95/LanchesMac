@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LanchesMac.Repositories;
+using LanchesMac.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using LanchesMac.Models;
-using LanchesMac.Repositories;
-using LanchesMac.ViewModels;
 
 namespace LanchesMac.Controllers
 {

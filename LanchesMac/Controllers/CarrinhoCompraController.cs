@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LanchesMac.Models;
+﻿using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace LanchesMac.Controllers
 {
@@ -14,8 +12,7 @@ namespace LanchesMac.Controllers
         private readonly ILancheRepository _lancheRepository;
         private readonly CarrinhoCompra _carrinhoCompra;
 
-        public CarrinhoCompraController(ILancheRepository lancheRepository,
-                                        CarrinhoCompra carrinhoCompra )
+        public CarrinhoCompraController(ILancheRepository lancheRepository, CarrinhoCompra carrinhoCompra)
         {
             _lancheRepository = lancheRepository;
             _carrinhoCompra = carrinhoCompra;
@@ -25,32 +22,34 @@ namespace LanchesMac.Controllers
             var itens = _carrinhoCompra.GetCarrinhoCompraItens();
             _carrinhoCompra.CarrinhoCompraItens = itens;
 
-            var carrinhoCompraViewModel = new CarrinhoCompraViewModel
+            var carrinhoCompraVM = new CarrinhoCompraViewModel
             {
                 CarrinhoCompra = _carrinhoCompra,
                 CarrinhoCompraTotal = _carrinhoCompra.GetCarrinhoCompraTotal()
             };
-            return View(carrinhoCompraViewModel);
+
+            return View(carrinhoCompraVM);
         }
 
+       /// [Authorize]
         public RedirectToActionResult AdicionarItemNoCarrinhoCompra(int lancheId)
         {
-            var lancheeSelecionado = _lancheRepository.Lanches.FirstOrDefault(p => p.LancheId == lancheId);
+            var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(p => p.LancheId == lancheId);
 
-            if (lancheeSelecionado != null)
+            if (lancheSelecionado != null)
             {
-                _carrinhoCompra.AdicionarAoCarrinho(lancheeSelecionado, 1);
+                _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado, 1);
             }
             return RedirectToAction("Index");
         }
 
-        public RedirectToActionResult RemoverItemNoCarrinhoCompra(int lancheId)
+       /// [Authorize]
+        public IActionResult RemoverItemDoCarrinhoCompra(int lancheId)
         {
-            var lancheeSelecionado = _lancheRepository.Lanches.FirstOrDefault(p => p.LancheId == lancheId);
-
-            if (lancheeSelecionado != null)
+            var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(p => p.LancheId == lancheId);
+            if (lancheSelecionado != null)
             {
-                _carrinhoCompra.RemoverDoCarrinho(lancheeSelecionado);
+                _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
             }
             return RedirectToAction("Index");
         }

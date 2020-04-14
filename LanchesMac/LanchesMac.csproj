@@ -9,6 +9,22 @@
     <Compile Remove="Migrations\20200409134712_MigracaoInicial.Designer.cs" />
     <Compile Remove="Migrations\20200409203239_CarrinhoCompraItem.cs" />
     <Compile Remove="Migrations\20200409203239_CarrinhoCompraItem.Designer.cs" />
+    <Compile Remove="Migrations\20200413195623_Pedidos.cs" />
+    <Compile Remove="Migrations\20200413195623_Pedidos.Designer.cs" />
+    <Compile Remove="Migrations\20200413200027_Pedidos.cs" />
+    <Compile Remove="Migrations\20200413200027_Pedidos.Designer.cs" />
+    <Compile Remove="Migrations\20200413200226_Pedidos.cs" />
+    <Compile Remove="Migrations\20200413200226_Pedidos.Designer.cs" />
+    <Compile Remove="Migrations\20200413200359_Pedidos.cs" />
+    <Compile Remove="Migrations\20200413200359_Pedidos.Designer.cs" />
+    <Compile Remove="Migrations\20200413200500_Pedidos.cs" />
+    <Compile Remove="Migrations\20200413200500_Pedidos.Designer.cs" />
+    <Compile Remove="Migrations\20200413200730_Pedidos.cs" />
+    <Compile Remove="Migrations\20200413200730_Pedidos.Designer.cs" />
+    <Compile Remove="Migrations\20200413201114_Pedidos.cs" />
+    <Compile Remove="Migrations\20200413201114_Pedidos.Designer.cs" />
+    <Compile Remove="Migrations\20200413201819_Pedidos.cs" />
+    <Compile Remove="Migrations\20200413201819_Pedidos.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
