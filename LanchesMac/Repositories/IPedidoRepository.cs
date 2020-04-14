@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LanchesMac.Repositories
 {
-    interface IPedidoRepository
+    public interface IPedidoRepository
     {
         void CriarPedido(Pedido pedido);
     }

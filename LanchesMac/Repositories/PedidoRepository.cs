@@ -1,9 +1,6 @@
 ﻿using LanchesMac.Context;
 using LanchesMac.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LanchesMac.Repositories
 {
@@ -12,8 +9,7 @@ namespace LanchesMac.Repositories
         private readonly AppDbContext _appDbContext;
         private readonly CarrinhoCompra _carrinhoCompra;
 
-        public PedidoRepository(AppDbContext appDbContext,
-            CarrinhoCompra carrinhoCompra)
+        public PedidoRepository(AppDbContext appDbContext, CarrinhoCompra carrinhoCompra)
         {
             _appDbContext = appDbContext;
             _carrinhoCompra = carrinhoCompra;
@@ -22,22 +18,26 @@ namespace LanchesMac.Repositories
         public void CriarPedido(Pedido pedido)
         {
             pedido.PedidoEnviado = DateTime.Now;
+
             _appDbContext.Pedidos.Add(pedido);
+            _appDbContext.SaveChanges();
 
             var carrinhoCompraItens = _carrinhoCompra.CarrinhoCompraItens;
+           
 
             foreach (var carrinhoItem in carrinhoCompraItens)
             {
-                var pedidoDetalhe = new PedidoDetalhe()
+                var pedidoDetail = new PedidoDetalhe()
                 {
-                    Quantidade= carrinhoItem.Quantidade,
+                    Quantidade = carrinhoItem.Quantidade,
                     LancheId = carrinhoItem.Lanche.LancheId,
                     PedidoId = pedido.PedidoId,
                     Preco = carrinhoItem.Lanche.Preco
                 };
 
-                _appDbContext.PedidoDetalhes.Add(pedidoDetalhe);
+                _appDbContext.PedidoDetalhes.Add(pedidoDetail);
             }
+
             _appDbContext.SaveChanges();
         }
     }

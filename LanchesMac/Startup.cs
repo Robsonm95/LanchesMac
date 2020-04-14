@@ -4,6 +4,7 @@ using LanchesMac.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +27,11 @@ namespace LanchesMac
             services.AddSession();
             services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
-           
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ILancheRepository, LancheRepository>();
             services.AddTransient<IPedidoRepository, PedidoRepository>();
@@ -56,7 +61,7 @@ namespace LanchesMac
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
-
+            app.UseAuthentication();
             app.UseRouting();
 
             app.UseAuthorization();
