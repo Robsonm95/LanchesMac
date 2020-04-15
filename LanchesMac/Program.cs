@@ -1,3 +1,4 @@
+using LanchesMac.Extensao;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -7,7 +8,11 @@ namespace LanchesMac
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            //criamos o método de extensão CreateAdminRole
+            CreateHostBuilder(args)
+               .Build()
+               .CreateAdminRole()
+               .Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

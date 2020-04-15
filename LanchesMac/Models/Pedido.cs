@@ -9,7 +9,7 @@ namespace LanchesMac.Models
 {
     public class Pedido
     {
-        [BindNever]
+        //[BindNever]
         public int PedidoId { get; set; }
 
         public List<PedidoDetalhe> PedidoItens { get; set; }

@@ -32,6 +32,8 @@ namespace LanchesMac
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Home/AcessDeniel");
+
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ILancheRepository, LancheRepository>();
             services.AddTransient<IPedidoRepository, PedidoRepository>();
@@ -68,6 +70,10 @@ namespace LanchesMac
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "AdminArea",
+                    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
